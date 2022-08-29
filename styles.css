@@ -1,0 +1,39 @@
+#carouselExampleFade img {
+  height: 33rem;
+}
+
+.products img {
+  height: 50vh;
+}
+.cart-img {
+  width: 6rem;
+  max-height: 6rem;
+  object-fit: cover;
+}
+.shop-item {
+  overflow: hidden;
+  max-width: 25rem;
+}
+#cart-sidebar {
+  width: 45rem;
+}
+.card-img-top {
+  height: 20rem;
+  object-fit: cover;
+  transition: scale 250ms;
+}
+.card-img-top:hover {
+  scale: 1.01;
+}
+.cart-quantity-input {
+  padding: 0.2em 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+.checkout-form {
+  display: none;
+}
+.rewiew {
+  object-fit: cover;
+}

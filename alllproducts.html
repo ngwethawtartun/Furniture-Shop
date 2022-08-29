@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Furniture Shop</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar bg-light shadow-sm">
+        <div class="container">
+          <h1 class="fs-4">J&D Furniture</h1>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contanct</a>
+            </li>
+          </ul>
+          <div>
+            <a class="btn bg-light fs-1" href="#cart-sidebar" role="button">
+              <i class="fa-brands fa-gratipay"></i>
+            </a>
+            <a
+              class="btn btn-dark rounded-pill"
+              data-bs-toggle="offcanvas"
+              href="#cart-sidebar"
+              role="button"
+              aria-controls="cart-sidebar"
+              ><i class="fa-solid fa-cart-shopping"></i
+            ></a>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="cart-sidebar"
+        aria-labelledby="cartSidebarLabel"
+      >
+        <div class="offcanvas-header">
+          <h3 class="offcanvas-title" id="cartSidebarLabel">Your Cart</h3>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <section class="container cart-items mt-5">
+            <!--item container-->
+          </section>
+          <div class="container row mt-4">
+            <!--total-->
+            <div class="row justify-content-end mt-4 fs-4">
+              <p class="col-8">Total</p>
+              <span class="cart-total-price col-1"></span>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <button class="payment-btn btn btn-dark">Payment</button>
+            </div>
+            <div class="checkout-container">
+              <!-- checkout form -->
+              <form class="checkout-form">
+                <fieldset>
+                  <label class="form-label" for="name">Name</label>
+                  <input
+                    class="form-control"
+                    name="name"
+                    type="text"
+                    id="name"
+                    required
+                  />
+                </fieldset>
+                <fieldset>
+                  <label class="form-label" for="email">Email</label>
+                  <input
+                    class="form-control"
+                    name="email"
+                    type="email"
+                    id="email"
+                    required
+                  />
+                </fieldset>
+                <fieldset>
+                  <label class="form-label" for="phone">Phone</label>
+                  <input
+                    class="form-control"
+                    name="phone"
+                    type="tel"
+                    id="phone"
+                    required
+                  />
+                </fieldset>
+                <fieldset>
+                  <label class="form-label" for="address">Address</label>
+
+                  <textarea
+                    class="form-control"
+                    name="address"
+                    id="address"
+                  ></textarea>
+                </fieldset>
+                <div class="d-flex justify-content-center mt-4">
+                  <button class="checkout-btn btn btn-dark">Checkout</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div
+          id="notification"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto">Notification</strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body">Item added to the cart</div>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <form class="d-flex mt-3" role="search">
+        <input
+          class="search form-control form-control-sm me-2"
+          type="search"
+          placeholder="Search products..."
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-dark btn-sm" type="submit">
+          Search
+        </button>
+      </form>
+      <section>
+        <h2 class="text-center fs-4 mt-4">New Products</h2>
+        <div class="products row row-cols-1 row-cols-md-3 g-4 mt-2">
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new6.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Rounded Table and Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>600
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Comfortable Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>200
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Sofa Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>470
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Armchairless</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>60
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Light Poster Bed
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>750
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/new5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Section Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>900
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="mt-4" />
+      </section>
+      <section>
+        <h2 class="text-center fs-4 mt-3">Best Seller Items</h2>
+        <div class="products row row-cols-1 row-cols-md-3 g-4 mt-2">
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Rounded Sofa</h3>
+                <p class="shop-item-price card-textfs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>400
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Work Table and Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>450
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Adjustable</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>700
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Egg Chair</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>180
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Camelback Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>150
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed6.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Scandinavian Bed
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>550
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="mt-4" />
+      </section>
+      <section>
+        <h2 class="text-center fs-4 mt-3">All Products</h2>
+        <div class="products row row-cols-1 row-cols-md-3 g-4 mt-2">
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Single Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>40
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Office chair and table
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>750
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Armchairless Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>65
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/light4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Shop-bulbs</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>150
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Desk</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>250
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Armchair Chair</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>75
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed6.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Scandinavian Bed
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>550
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/light2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Mercury Big Lamp
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>300
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/light3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Mid-century Morden Lamp
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>50
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Lyre Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>400
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Occadional Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>80
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Work Table and Chair
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>
+                  450
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">
+                  Classic-round Arm Sofa
+                </h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>70
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Hammock Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>650
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Beside Table</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>25
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa6.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Modular Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>250
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Poster Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>450
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/light1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Bright Lighting</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>300
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa3.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Lawson</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>90
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Unique Chair</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>60
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/table4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Computre Table</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>550
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed4.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Adjustable Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>700
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Camelback Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>150
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/chair1.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Egg Chair</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>180
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/bed2.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Stroge Bed</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>45
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/sofa5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Rounded Sofa</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>400
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="shop-item search-product col">
+            <div class="card">
+              <img
+                src="images/light5.jpg"
+                class="shop-item-image card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h3 class="shop-item-title card-title fs-5">Lamp House</h3>
+                <p class="shop-item-price card-text fs-6">
+                  <i class="fa-solid fa-dollar-sign"></i>30
+                </p>
+                <button class="btn btn-dark shop-item-button px-6">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
